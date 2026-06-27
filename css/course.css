@@ -1,0 +1,335 @@
+:root {
+      --bg: #08111f;
+      --white: #ffffff;
+      --muted: #a9b4c7;
+      --orange: #ff4c29;
+      --line: rgba(255,255,255,0.12);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:"Inter",sans-serif;
+      background:
+      radial-gradient(circle at top left, rgba(74,163,255,.08), transparent 30%),
+      linear-gradient(180deg,#08111f 0%,#091221 100%);
+      color:var(--white);
+      overflow-x:hidden;
+    }
+
+    .site-header{
+      position:fixed;
+      top:20px;
+      left:50%;
+      transform:translateX(-50%);
+      width:min(92%,1200px);
+      padding:16px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(10,15,30,.7);
+      backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      z-index:100;
+    }
+
+    .site-logo{
+      text-decoration:none;
+      color:white;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .site-nav{
+      display:flex;
+      gap:24px;
+    }
+
+    .site-nav a{
+      color:white;
+      text-decoration:none;
+      font-weight:600;
+      transition:.3s;
+    }
+
+    .site-nav a:hover{
+      color:var(--orange);
+    }
+
+    .hero-section{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding:120px 7vw 60px;
+    }
+
+    .hero-inner{
+      max-width:800px;
+    }
+
+    .hero-badge{
+      font-size:.85rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      margin-bottom:20px;
+      color:#c8d1df;
+    }
+
+    h1{
+      font-size:clamp(3rem,7vw,6rem);
+      line-height:.95;
+      font-family:"Space Grotesk",sans-serif;
+      margin-bottom:24px;
+    }
+
+    .hero-copy{
+      color:var(--muted);
+      font-size:1.1rem;
+      line-height:1.8;
+      max-width:650px;
+    }
+
+    .hero-action{
+      display:inline-block;
+      margin-top:32px;
+      text-decoration:none;
+      color:white;
+      font-weight:700;
+      transition:.3s;
+    }
+
+    .hero-action:hover{
+      color:var(--orange);
+    }
+
+    .map-section{
+      padding:80px 7vw;
+      position:relative;
+    }
+
+    .map-header{
+      margin-bottom:60px;
+      max-width:700px;
+    }
+
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.2em;
+      color:#c8d1df;
+      margin-bottom:14px;
+    }
+
+    .map-header h2{
+      font-size:clamp(2rem,5vw,4rem);
+      line-height:1;
+      font-family:"Space Grotesk",sans-serif;
+    }
+
+    .route-canvas{
+      display:flex;
+      flex-direction:column;
+      gap:40px;
+      position:relative;
+    }
+
+    .route-line{
+      position:absolute;
+      left:50%;
+      top:0;
+      bottom:0;
+      width:2px;
+      background:linear-gradient(to bottom,var(--orange),#4aa3ff);
+      transform:translateX(-50%);
+      opacity:.4;
+    }
+
+    .station{
+      width:min(520px,90%);
+      position:relative;
+      opacity:1;
+      transform:none;
+    }
+
+    .station-left{
+      align-self:flex-start;
+    }
+
+    .station-center{
+      align-self:center;
+    }
+
+    .station-right{
+      align-self:flex-end;
+    }
+
+    .station-point{
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:var(--orange);
+      position:absolute;
+      top:36px;
+      box-shadow:0 0 25px rgba(255,76,41,.8);
+    }
+
+    .station-left .station-point{
+      right:-35px;
+    }
+
+    .station-center .station-point{
+      left:50%;
+      transform:translateX(-50%);
+      top:-22px;
+    }
+
+    .station-right .station-point{
+      left:-35px;
+    }
+
+    .station-card{
+      padding:28px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:rgba(12,20,36,.75);
+      backdrop-filter:blur(14px);
+      transition:.35s;
+    }
+
+    .station-card:hover{
+      transform:translateY(-8px);
+      border-color:rgba(255,76,41,.4);
+    }
+
+    .station-meta{
+      display:flex;
+      gap:14px;
+      margin-bottom:20px;
+      align-items:center;
+    }
+
+    .station-number{
+      color:var(--orange);
+      font-weight:800;
+      letter-spacing:.15em;
+      font-size:.8rem;
+    }
+
+    .station-tag{
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .station-topline{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+    }
+
+    .station-icon{
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      background:rgba(255,255,255,.05);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-shrink:0;
+    }
+
+    .station-icon svg{
+      width:28px;
+      height:28px;
+      stroke:var(--orange);
+    }
+
+    .station-card h3{
+      font-size:2rem;
+      line-height:1;
+      margin-bottom:14px;
+      font-family:"Space Grotesk",sans-serif;
+    }
+
+    .station-card p{
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .station-action{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:24px;
+      color:white;
+      text-decoration:none;
+      font-weight:700;
+      transition:.3s;
+    }
+
+    .station-action:hover{
+      color:var(--orange);
+    }
+
+    .footer-section{
+      padding:120px 7vw 60px;
+    }
+
+    .footer-lead{
+      font-size:clamp(2rem,5vw,4rem);
+      font-family:"Space Grotesk",sans-serif;
+      max-width:12ch;
+      line-height:1;
+    }
+
+    @media(max-width:900px){
+
+      .route-line{
+        left:10px;
+      }
+
+      .station{
+        width:100%;
+        padding-left:40px;
+      }
+
+      .station-left,
+      .station-center,
+      .station-right{
+        align-self:flex-start;
+      }
+
+      .station-left .station-point,
+      .station-center .station-point,
+      .station-right .station-point{
+        left:0;
+        transform:none;
+        top:40px;
+      }
+
+      .site-header{
+        border-radius:20px;
+      }
+
+      .site-nav{
+        gap:14px;
+      }
+
+      .site-nav a{
+        font-size:.9rem;
+      }
+
+      .station-topline  h3 {
+        font-size:1rem;
+      }
+
+      .station-topline .station-icon{
+        width:38px;
+        height:38px;
+      }
+      
+    }
