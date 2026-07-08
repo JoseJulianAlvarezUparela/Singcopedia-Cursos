@@ -9,16 +9,157 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/course.css" />
+  <style>
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 4vw;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        position: relative;
+        top: 0;
+        z-index: 100;
+    }
+    .logo-text {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: black;
+        white-space: nowrap;
+    }
+    nav ul {
+        display: flex;
+        gap: .35rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li a {
+        text-decoration: none;
+        color: black;
+        left: -50px;
+        font-weight: 600;
+        font-size: 2rem;
+        padding: 7px 8px;
+        border-radius: 6px;
+        transition: 
+            color 0.2s,
+            background 0.2s,
+            box-shadow 0.2s,
+            border 0.2s;
+        position: relative;
+        overflow: hidden;
+    }
+    @media (max-width: 800px) {
+        header {
+            align-items: center;
+            position: relative;
+          }
+          
+          nav {
+            display: none;
+          }
+          
+          nav ul {
+            gap: 1.2rem;
+          }
+          .logo-text {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .panel{
+      display: none;
+    }
+    .panel-btn{
+      display: none;
+    }
+    @media screen and (max-width: 800px) {
+      .panel {
+        position: fixed;
+        z-index: 998;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+        background-color: white;
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.3s ease, opacity 0.5s ease;
+        transform: translateX(-100%);
+      }
+      .panel.is-active {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      .panel-btn {
+        position: fixed;
+        z-index: 999;
+        bottom: 5vh;
+        right: 10vw;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        color: black;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+      .no-scroll {
+        overflow: hidden;
+      }
+      .menu {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .menu a {
+        padding: 2rem;
+        display: block;
+        font-size: 2.2rem;
+        text-decoration: none;
+        color: black;
+        transition: all 0.3s ease;
+      }
+      .menu a:hover {
+        font-weight: bold;
+        color: var(--color-blue-1);
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="site-logo" href="https://singcopedia-inicio.netlify.app/" aria-label="Volver al inicio">La Singcopedia</a>
-    <nav class="site-nav" aria-label="Navegación principal">
-      <a href="https://singcopedia-inicio.netlify.app/">Inicio</a>
-      <a href="https://singcopedia-cursos.netlify.app/">Cursos</a>
-      <a href="https://singcopedia-inicio.netlify.app/#about">Acerca de</a>
-    </nav>
+  <header id="header">
+      <span class="logo-text">SINGCOPEDIA</span>
+      <nav>
+          <ul>
+              <li><a href="https://singcopedia-inicio.netlify.app/">Inicio</a></li>
+              <li><a href="https://singcopedia-cursos.netlify.app/">Cursos</a></li>
+              <li><a href="https://singcopedia-acerca-de.netlify.app/">Acerca de</a></li>
+          </ul>
+      </nav>
   </header>
+
+  <button class="panel-btn" id="panel-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+  <aside class="panel" id="panel">
+      <nav class="menu">
+          <a href="https://singcopedia-inicio.netlify.app/">Inicio</a>
+          <a href="https://singcopedia-cursos.netlify.app/">Cursos</a>
+          <a href="https://singcopedia-acerca-de.netlify.app/">Acerca de</a>
+      </nav>
+  </aside>
 
   <aside class="progress-rail" aria-hidden="true">
     <!-- <span class="progress-label">PROGRESO</span> -->
@@ -615,5 +756,24 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
 
   <script src="js/course.js"></script>
+  <script>
+    const btn = document.getElementById("panel-btn");
+    const panel = document.getElementById("panel");
+    const links = panel ? panel.querySelectorAll("a") : [];
+    if (btn && panel) {
+      btn.addEventListener("click", () => {
+        const isOpen = panel.classList.toggle("is-active");
+        btn.setAttribute("aria-expanded", isOpen.toString());
+        document.body.classList.toggle("no-scroll", isOpen);
+      });
+      links.forEach(link => {
+        link.addEventListener("click", () => {
+          panel.classList.remove("is-active");
+          btn.setAttribute("aria-expanded", "false");
+          document.body.classList.remove("no-scroll");
+        });
+      });
+    }
+  </script>
 </body>
 </html>
